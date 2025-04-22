@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main # Adjust branch name to trigger workflow on push to 'main'
+  workflow_dispatch:    
 
 jobs:
   build:
