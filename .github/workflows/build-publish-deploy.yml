@@ -1,0 +1,57 @@
+name: Build and Deploy Java App
+
+on:
+  push:
+    branches:
+      - main # Adjust branch name to trigger workflow on push to 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Checkout Code
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    # 2. Setup Java
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11' # Specify Java version (e.g., 11 or 17)
+        distribution: 'temurin'
+    
+    # 3. Build WAR File Using Maven
+    - name: Build WAR File
+      run: |
+        mvn clean package
+    
+    # 4. Archive the WAR File as an Artifact
+    - name: Upload WAR File
+      uses: actions/upload-artifact@v3
+      with:
+        name: war-file
+        path: target/*.war # Adjust path if your WAR file is in a different directory
+
+  deploy:
+    needs: build # Deploy job depends on the build job
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Checkout Code
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # 2. Download WAR File from Build Job
+    - name: Download WAR File
+      uses: actions/download-artifact@v3
+      with:
+        name: war-file
+    
+    # 3. Deploy to Azure Web App
+    - name: Azure Web App Deploy
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'java-web-appp' # Replace with your Azure Web App name
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }} # Publish Profile stored in GitHub Secrets
+        package: '*.war' # Adjust if the WAR file path is different
