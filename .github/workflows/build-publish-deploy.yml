@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: war-file
-        path: target/*.war # Adjust path if your WAR file is in a different directory
+        path: '${{ github.workspace }}/target/*.war' # Adjust path if your WAR file is in a different directory
 
   deploy:
     needs: build # Deploy job depends on the build job
