@@ -29,7 +29,7 @@ jobs:
     
     # 4. Archive the WAR File as an Artifact
     - name: Upload WAR File
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: war-file
         path: target/*.war # Adjust path if your WAR file is in a different directory
