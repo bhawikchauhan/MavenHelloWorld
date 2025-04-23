@@ -1,0 +1,11 @@
+# Start with the official Tomcat image
+FROM tomcat:latest
+
+# Copy the WAR file to the Tomcat webapps directory
+COPY ./webapp/target/webapp.war /usr/local/tomcat/webapps/
+
+# Optionally expose port 8080 for the Tomcat server
+EXPOSE 8080
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
