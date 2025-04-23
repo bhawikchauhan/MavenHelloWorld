@@ -26,6 +26,10 @@ jobs:
     - name: Build WAR File
       run: |
         mvn clean package
+
+    - name: List Files in Target Directory
+      run: ls target/
+   
     
     # 4. Archive the WAR File as an Artifact
     - name: Upload WAR File
