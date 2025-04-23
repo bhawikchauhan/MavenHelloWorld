@@ -30,3 +30,4 @@ steps:
     repository: 'bhawik/azuredevops'
     command: 'buildAndPush'
     Dockerfile: '**/AzureDockerJava'
+    tags: $(Build.BuildId)
