@@ -45,7 +45,7 @@ jobs:
 
     # 2. Download WAR File from Build Job
     - name: Download WAR File
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: war-file
     
